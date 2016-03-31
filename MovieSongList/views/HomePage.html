@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src= "jquery" ></script>
+</head>
+<body>
+
+<h1><a href= "movieList" id= "movieLink">Movie List</a></h1>
+
+<div></div>
+
+<br>
+
+<span id= "songs"></span>
+</body>
+
+
+<script type= "text/javascript">
+
+(function() {
+	
+	document.getElementById("movieLink").addEventListener("click", function(event) {
+		
+	    event.preventDefault();
+	    $.getJSON('movieList', function(data) {
+	    	$("div").empty();	
+	        $.each(data, function(index, element) {
+	        	$("div").append("<a id='"+element.movieId+"' href='songList/"+element.movieId+"'>"+element.movieId+ "</a> "+element.movieName+"<br>");
+	        	
+	        	
+	        	 $("#"+element.movieId).click(function(event){
+	        		event.preventDefault();
+	        		$.getJSON("songList/"+element.movieId,function(data){
+	        			$("#songs").empty();
+	        				$("#songs").append(element.song);
+	        			
+	        		});
+	        	}); 
+	        });
+	    });
+	});
+})();
+
+</script>
+</html>
